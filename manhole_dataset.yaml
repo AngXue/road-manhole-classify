@@ -1,0 +1,9 @@
+# 数据集配置
+path: /home/angxue/Program/Python_Projects/road-manhole-classify/DataSet  # 数据集的根目录路径
+train: images/train  # 训练集图像相对路径
+val: images/val    # 验证集图像相对路径
+
+# 类别数量和名称
+nc: 5  # 类别数
+names: [ 'good', 'broke', 'lose', 'uncovered', 'circle' ]  # 类别名称
+
