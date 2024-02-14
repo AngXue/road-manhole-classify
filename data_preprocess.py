@@ -2,7 +2,7 @@ import os
 import xml.etree.ElementTree as ET
 from PIL import Image
 
-# 类别映射，确保这与你的dataset.yaml中的类别对应
+# 类别映射
 class_mapping = {'good': 0, 'broke': 1, 'lose': 2, 'uncovered': 3, 'circle': 4}
 
 
@@ -55,7 +55,7 @@ def batch_convert_xmls(xml_dir, img_dir, output_dir):
             print(f"Processed {xml_file}")
 
 
-# 配置你的路径
+# 配置路径
 base_dir = "/home/angxue/Program/Python_Projects/road-manhole-classify/DataSet"
 xml_dirs = {
     "train": "train_xmls",

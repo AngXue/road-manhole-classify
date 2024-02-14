@@ -15,7 +15,7 @@ from utils.torch_utils import select_device
 from pathlib import Path
 from tkinter import filedialog
 
-# 确保YOLOv5的根目录正确添加到sys.path
+# 将YOLOv5仓库的路径添加到sys.path中
 yolov5_root = '/home/angxue/Program/Python_Projects/road-manhole-classify/yolov5'
 sys.path.append(yolov5_root)
 
