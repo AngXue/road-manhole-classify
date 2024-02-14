@@ -15,10 +15,6 @@ from utils.torch_utils import select_device
 from pathlib import Path
 from tkinter import filedialog
 
-# 将YOLOv5仓库的路径添加到sys.path中
-yolov5_root = '/home/angxue/Program/Python_Projects/road-manhole-classify/yolov5'
-sys.path.append(yolov5_root)
-
 
 def select_file():
     try:

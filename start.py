@@ -2,10 +2,6 @@ import sys
 
 from yolov5.train import run  # 导入YOLOv5的训练函数
 
-# 将YOLOv5仓库的路径添加到sys.path中
-yolov5_path = 'yolov5/'
-sys.path.append(yolov5_path)
-
 if __name__ == '__main__':
     # 设置训练参数
     train_params = {
