@@ -1,0 +1,50 @@
+certifi @ file:///croot/certifi_1707229174982/work/certifi
+charset-normalizer @ file:///tmp/build/80754af9/charset-normalizer_1630003229654/work
+contourpy==1.2.0
+cycler==0.12.1
+filelock @ file:///croot/filelock_1700591183607/work
+fonttools==4.48.1
+fsspec==2024.2.0
+gitdb==4.0.11
+GitPython==3.1.41
+gmpy2 @ file:///work/ci_py311/gmpy2_1676839849213/work
+greenlet==3.0.3
+idna @ file:///work/ci_py311/idna_1676822698822/work
+Jinja2 @ file:///croot/jinja2_1706733616596/work
+kiwisolver==1.4.5
+MarkupSafe @ file:///croot/markupsafe_1704205993651/work
+matplotlib==3.8.2
+mkl-fft @ file:///croot/mkl_fft_1695058164594/work
+mkl-random @ file:///croot/mkl_random_1695059800811/work
+mkl-service==2.4.0
+mpmath @ file:///croot/mpmath_1690848262763/work
+networkx @ file:///croot/networkx_1690561992265/work
+numpy @ file:///croot/numpy_and_numpy_base_1704311704800/work/dist/numpy-1.26.3-cp311-cp311-linux_x86_64.whl#sha256=10a078151ecec16bafb535f7487635217625fa06536dec8509e514648c78d626
+opencv-python==4.9.0.80
+packaging==23.2
+pandas==2.2.0
+pillow @ file:///croot/pillow_1707233021655/work
+psutil==5.9.8
+py-cpuinfo==9.0.0
+pynvim==0.5.0
+pyparsing==3.1.1
+python-dateutil==2.8.2
+pytz==2024.1
+PyYAML @ file:///croot/pyyaml_1698096049011/work
+requests @ file:///croot/requests_1707355572290/work
+scipy==1.12.0
+seaborn==0.13.2
+six==1.16.0
+smmap==5.0.1
+sympy @ file:///croot/sympy_1701397643339/work
+thop==0.1.1.post2209072238
+torch==2.2.0
+torchaudio==2.2.0
+torchvision==0.17.0
+tqdm==4.66.2
+train==0.0.5
+triton==2.2.0
+typing_extensions @ file:///croot/typing_extensions_1705599297034/work
+tzdata==2024.1
+ultralytics==8.1.13
+urllib3 @ file:///croot/urllib3_1700840488771/work
