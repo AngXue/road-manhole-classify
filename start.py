@@ -9,7 +9,7 @@ if __name__ == '__main__':
         'batch_size': 16,  # 批次大小
         'epochs': 300,  # 训练周期
         'data': 'manhole_dataset.yaml',  # 数据集配置文件
-        'weights': 'yolov5s.pt',  # 预训练权重
+        'weights': 'yolov5m.pt',  # 预训练权重
         'cache': True  # 缓存图像以加速训练
     }
 
