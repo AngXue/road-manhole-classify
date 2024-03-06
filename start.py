@@ -2,6 +2,15 @@ import sys
 
 from yolov5.train import run  # 导入YOLOv5的训练函数
 
+from comet_ml import Experiment
+from comet_ml.integration.pytorch import log_model
+
+# experiment = Experiment(
+#     api_key="8TOPq6OhzAs5tfglOaqKKi4vr",
+#     project_name="general",
+#     workspace="angxue"
+# )
+
 if __name__ == '__main__':
     # 设置训练参数
     train_params = {

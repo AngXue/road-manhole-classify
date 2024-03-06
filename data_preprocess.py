@@ -56,7 +56,7 @@ def batch_convert_xmls(xml_dir, img_dir, output_dir):
 
 
 # 配置路径
-base_dir = "/home/angxue/Program/Python_Projects/road-manhole-classify/DataSet"
+base_dir = "DataSet"
 xml_dirs = {
     "train": "train_xmls",
     "val": "val_xmls",
