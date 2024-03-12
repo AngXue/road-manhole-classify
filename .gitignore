@@ -1,6 +1,4 @@
 /DataSet/
 /.idea/
-/yolov5s.pt
-/yolov5l.pt
-/yolov5m.pt
-/yolov5x.pt
+*.pt
+*.onnx
