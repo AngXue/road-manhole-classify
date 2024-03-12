@@ -82,11 +82,8 @@ class ImagePredictor:
         # 加载原始图像
         image = cv2.imread(img_path)
 
-        # 假设 final_class_ids 和 final_confidences 分别包含了类别ID和置信度
-
-        # 假设原始图像尺寸
         orig_height, orig_width = image.shape[:2]  # 使用cv2.imread加载的原始图像尺寸
-        model_height, model_width = 640, 640  # 模型输入尺寸
+        model_height, model_width = self.input_size, self.input_size
 
         # 计算缩放因子
         scale_x = orig_width / model_width
@@ -116,7 +113,7 @@ class ImagePredictor:
     def predict_single_image(self, img_path, save_path=None):
         image = self.preprocess(img_path)
         outputs = self.predict(image)
-        predictions = self.postprocess([outputs])  # Wrap in list to mimic batch
+        predictions = self.postprocess([outputs])
         if save_path:
             self.draw_boxes_and_save(img_path, predictions, save_path)
         return predictions

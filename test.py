@@ -30,7 +30,7 @@ def select_file():
         return None
 
 
-def run(weights='yolov5/runs/train/exp/weights/best.pt',  # 模型权重文件
+def run(weights='best.pt',  # 模型权重文件
         img_size=640,  # 输入图像大小
         conf_thres=0.25,  # 置信度阈值
         view_img=True):  # 是否显示图像
