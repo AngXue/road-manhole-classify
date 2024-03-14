@@ -10,12 +10,12 @@ from pathlib import Path
 
 
 class ImagePredictor:
-    def __init__(self, model_path, input_size=640, conf_threshold=0.25, nms_threshold=0.45, class_names=None):
+    def __init__(self, model_path, input_size=640, conf_threshold=0.25, nms_threshold=0.45):
         self.model_path = model_path
         self.input_size = input_size
         self.conf_threshold = conf_threshold
         self.nms_threshold = nms_threshold
-        self.class_names = class_names if class_names else []
+        self.class_names = ['good', 'broke', 'lose', 'uncovered', 'circle']
         self.ort_session = ort.InferenceSession(model_path)
         self.input_name = self.ort_session.get_inputs()[0].name
         self.output_name = self.ort_session.get_outputs()[0].name
@@ -129,8 +129,7 @@ class ImagePredictor:
 # 以ONNX模型路径和图像路径为参数运行推理
 if __name__ == '__main__':
     model_path = 'best-sim.onnx'
-    class_names = ['good', 'broke', 'lose', 'uncovered', 'circle']
-    predictor = ImagePredictor(model_path, class_names=class_names)
+    predictor = ImagePredictor(model_path)
 
     # 预测单张图像并保存结果
     single_image_path = 'NewYolovDataSet/images/train/well1_0002.jpg'
