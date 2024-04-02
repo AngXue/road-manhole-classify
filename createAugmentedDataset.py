@@ -39,7 +39,7 @@ def write_label_file(augmented_label_path, augmented_boxes, augmented_class_labe
 
 def create_augmented_dataset(original_dir: Path, augmented_dir: Path, augmentation_list):
     """
-    对原始数据集进行增强并创建副本数据集，包含原始数据和使用不同增强策略的增强数据。
+    对数据集中的Train部分进行增强并创建副本数据集，包含原始数据和使用不同增强策略的增强数据。
     """
     clear_directory(augmented_dir)
     initialize_dataset_structure(augmented_dir)
@@ -55,10 +55,12 @@ def create_augmented_dataset(original_dir: Path, augmented_dir: Path, augmentati
         boxes = [box[:4] for box in boxes]
 
         # 复制原始图像及其标注到副本数据集
-        shutil.copy(image_path, augmented_dir / 'images' / 'train' / image_path.name)
+        result_path = shutil.copy(image_path, augmented_dir / 'images' / 'train' / image_path.name)
+        print(f'{image_path} --> {result_path}')
         label_path = original_dir / 'labels' / 'train' / f"{image_path.stem}.txt"
         if label_path.exists():
-            shutil.copy(label_path, augmented_dir / 'labels' / 'train' / label_path.name)
+            result_path = shutil.copy(label_path, augmented_dir / 'labels' / 'train' / label_path.name)
+            print(f'{label_path} --> {result_path}')
 
         # 为每种增强策略创建增强版本
         for i, augmentation in enumerate(augmentation_list, start=1):
@@ -74,6 +76,23 @@ def create_augmented_dataset(original_dir: Path, augmented_dir: Path, augmentati
             augmented_label_path = augmented_dir / 'labels' / 'train' / augmented_label_name
             # 写入新的标注文件
             write_label_file(augmented_label_path, augmented_boxes, augmented_class_labels)
+
+    # 将val和test的数据也复制到新的数据集
+    for image_path in original_dir.glob('images/val/*.*'):
+        result_path = shutil.copy(image_path, augmented_dir / 'images' / 'val' / image_path.name)
+        print(f'{image_path} --> {result_path}')
+        label_path = original_dir / 'labels' / 'val' / f"{image_path.stem}.txt"
+        if label_path.exists():
+            result_path = shutil.copy(label_path, augmented_dir / 'labels' / 'val' / label_path.name)
+            print(f'{label_path} --> {result_path}')
+
+    for image_path in original_dir.glob('images/test/*.*'):
+        result_path = shutil.copy(image_path, augmented_dir / 'images' / 'test' / image_path.name)
+        print(f'{image_path} --> {result_path}')
+        label_path = original_dir / 'labels' / 'test' / f"{image_path.stem}.txt"
+        if label_path.exists():
+            result_path = shutil.copy(label_path, augmented_dir / 'labels' / 'test' / label_path.name)
+            print(f'{label_path} --> {result_path}')
 
 
 # 定义增强策略列表
@@ -100,14 +119,14 @@ augmentation_list = [
 
 if __name__ == '__main__':
     # 示例使用路径
-    original_dataset_dir = Path("NewYolovDataSet")
-    augmented_dataset_dir = Path("AugmentedDataset")
+    original_dataset_dir = Path("ReplicaSet")
+    augmented_dataset_dir = Path("DataSet")
 
     # 创建增强后的数据集
     create_augmented_dataset(original_dataset_dir, augmented_dataset_dir, augmentation_list)
 
     # 打印数据集详细信息
-    print("Original Dataset Summary:")
+    print("Replica Dataset Summary:")
     print_dataset_summary(original_dataset_dir)
     print("\nAugmented Dataset Summary:")
     print_dataset_summary(augmented_dataset_dir)
