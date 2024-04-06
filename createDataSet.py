@@ -47,7 +47,7 @@ def create_replica_dataset(original_dir: Path, replica_dir: Path):
     # 对每个类别，从副本训练集中随机抽取20%的图像作为验证集
     for category in range(6):
         category_files = list(replica_dir.glob(f'images/train/well{category}_*.*'))
-        sampled_files = random.sample(category_files, k=max(1, len(category_files) // 20))
+        sampled_files = random.sample(category_files, k=max(1, len(category_files) // 10))
 
         for file in sampled_files:
             shutil.move(file, replica_dir / 'images' / 'val' / file.name)
@@ -56,15 +56,15 @@ def create_replica_dataset(original_dir: Path, replica_dir: Path):
                 shutil.move(label_file, replica_dir / 'labels' / 'val' / label_file.name)
 
     # 再抽取20%作为测试集
-    for category in range(6):
-        category_files = list(replica_dir.glob(f'images/train/well{category}_*.*'))
-        sampled_files = random.sample(category_files, k=max(1, len(category_files) // 20))
-
-        for file in sampled_files:
-            shutil.move(file, replica_dir / 'images' / 'test' / file.name)
-            label_file = replica_dir / 'labels' / 'train' / f"{file.stem}.txt"
-            if label_file.exists():
-                shutil.move(label_file, replica_dir / 'labels' / 'test' / label_file.name)
+    # for category in range(6):
+    #     category_files = list(replica_dir.glob(f'images/train/well{category}_*.*'))
+    #     sampled_files = random.sample(category_files, k=max(1, len(category_files) // 20))
+    #
+    #     for file in sampled_files:
+    #         shutil.move(file, replica_dir / 'images' / 'test' / file.name)
+    #         label_file = replica_dir / 'labels' / 'train' / f"{file.stem}.txt"
+    #         if label_file.exists():
+    #             shutil.move(label_file, replica_dir / 'labels' / 'test' / label_file.name)
 
 
 def print_dataset_summary(dataset_dir: Path):
