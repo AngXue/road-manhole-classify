@@ -4,53 +4,77 @@ import shutil
 from PIL import Image
 from ultralytics import YOLO
 
-model = YOLO('/home/angxue/Downloads/maybe-the-end2.pt')
-# model = YOLO('井盖测试集/best.pt')
 
-source = '井盖测试集/测试集图片'
-# source = '井盖测试集/测试集图片/test10.jpg'
+def model_run(model_path, data_path, conf=0.25, iou=0.45):
+    """
+    对给定的模型和数据集运行YOLO对象检测。
+    :param iou:
+    :param conf:
+    :param model_path: 模型路径
+    :param data_path: 数据集路径
+    :return:
+    """
+    model = YOLO(model_path)
+    return model(data_path, conf=conf, iou=iou, half=True, augment=True, agnostic_nms=True)
 
-# results = model(source, stream=True)
-results = model(source=source, conf=0.25, iou=0.4, half=True, augment=True, agnostic_nms=True)
 
-result_dir = 'test_results'
-if os.path.exists(result_dir):
-    # 删除文件夹及其内容
-    shutil.rmtree(result_dir)
-os.mkdir(result_dir)
+def save_results(results, result_txt_path, result_image_path):
+    """
+    保存所有对象检测结果
+    :param results: 检测结果
+    :param result_txt_path: 保存结果的txt文件路径
+    :param result_image_path: 保存结果的图片文件夹路径
+    :return:
+    """
+    # 保存
+    with open(result_txt_path, 'a') as file:
+        for i, r in enumerate(results):
+            im_bgr = r.plot()
+            im_rgb = Image.fromarray(im_bgr[..., ::-1])
 
-# 保存所有对象检测结果至一个文件
-results_txt = 'results.txt'
-if os.path.exists(results_txt):
-    os.remove(results_txt)
+            # 取完整路径的文件名
+            file_name = r.path.split('/')[-1]
 
-# 保存
-with open('results.txt', 'a') as file:
-    for i, r in enumerate(results):
-        im_bgr = r.plot()
-        im_rgb = Image.fromarray(im_bgr[..., ::-1])
+            save_path = os.path.join(result_image_path, f'{file_name}')
+            im_rgb.save(save_path)
 
-        # 取完整路径的文件名
-        file_name = r.path.split('/')[-1]
+            data = [
+                {
+                    'cls': int(box.cls.item()),
+                    'conf': box.conf.item(),
+                    'xyxy': [round(coordinate) for coordinate in box.xyxy.tolist()[0]],
+                    'filename': file_name
+                }
+                for box in r.boxes
+            ]
 
-        save_path = os.path.join(result_dir, f'{file_name}')
-        im_rgb.save(save_path)
+            for item in data:
+                # 格式化每行的数据，并以空格分隔
+                line = f"{item['filename']}\t{item['cls']}\t{item['conf']}\t{' '.join(map(str, item['xyxy']))}\n"
+                # 写入文件
+                file.write(line)
 
-        data = [
-            {
-                'cls': int(box.cls.item()),
-                'conf': box.conf.item(),
-                'xyxy': [round(coordinate) for coordinate in box.xyxy.tolist()[0]],
-                'filename': file_name
-            }
-            for box in r.boxes
-        ]
+            print(f'{i + 1}: {save_path}')
+            # r.show()
 
-        for item in data:
-            # 格式化每行的数据，并以空格分隔
-            line = f"{item['filename']}\t{item['cls']}\t{item['conf']}\t{' '.join(map(str, item['xyxy']))}\n"
-            # 写入文件
-            file.write(line)
 
-        print(f'{i+1}: {save_path}')
-        # r.show()
+if __name__ == '__main__':
+    # model_path = '井盖测试集/best.pt
+    model_path = '/home/angxue/Downloads/maybe-the-end2.pt'
+    data_path = '井盖测试集/测试集图片'
+    # data_path = '井盖测试集/测试集图片/test10.jpg'
+
+    results = model_run(model_path, data_path)
+
+    result_dir = 'test_results'
+    if os.path.exists(result_dir):
+        # 删除文件夹及其内容
+        shutil.rmtree(result_dir)
+    os.mkdir(result_dir)
+
+    # 保存所有对象检测结果至一个文件
+    results_txt = 'results.txt'
+    if os.path.exists(results_txt):
+        os.remove(results_txt)
+
+    save_results(results, results_txt, result_dir)
