@@ -1,11 +1,12 @@
 import os
+import re
 import torch
 import shutil
 from PIL import Image
 from ultralytics import YOLO
 
 
-def model_run(model_path, data_path, conf=0.25, iou=0.45):
+def model_run(model_path, data_path, conf=0.2, iou=0.3):
     """
     对给定的模型和数据集运行YOLO对象检测。
     :param iou:
@@ -26,7 +27,9 @@ def save_results(results, result_txt_path, result_image_path):
     :param result_image_path: 保存结果的图片文件夹路径
     :return:
     """
-    # 保存
+    # 通过提取文件名中的数字来排序结果
+    results = sorted(results, key=lambda x: int(re.search(r'\d+', x.path.split('/')[-1]).group()))
+
     with open(result_txt_path, 'a') as file:
         for i, r in enumerate(results):
             im_bgr = r.plot()
@@ -59,7 +62,7 @@ def save_results(results, result_txt_path, result_image_path):
 
 
 if __name__ == '__main__':
-    # model_path = '井盖测试集/best.pt
+    # model_path = '井盖测试集/best.pt'
     model_path = '/home/angxue/Downloads/maybe-the-end2.pt'
     data_path = '井盖测试集/测试集图片'
     # data_path = '井盖测试集/测试集图片/test10.jpg'
