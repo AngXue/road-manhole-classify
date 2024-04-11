@@ -6,7 +6,7 @@ import os
 from matplotlib import pyplot as plt
 
 # 数据集的根目录路径
-dataset_path = 'DataSet'
+dataset_path = 'EndDataSet'
 
 # 类别名称
 class_names = ['good', 'broke', 'lose', 'uncovered', 'circle']

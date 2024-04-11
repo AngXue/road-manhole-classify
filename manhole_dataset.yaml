@@ -1,5 +1,5 @@
 # 数据集配置
-path: ../DataSet  # 数据集的根目录路径
+path: /kaggle/input/the-end-dataset/DataSet  # 数据集的根目录路径
 train: images/train  # 训练集图像相对路径
 val: images/val    # 验证集图像相对路径
 

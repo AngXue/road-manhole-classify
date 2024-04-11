@@ -6,7 +6,7 @@ from PIL import Image
 from ultralytics import YOLO
 
 
-def model_run(model_path, data_path, conf=0.2, iou=0.3):
+def model_run(model_path, data_path, conf=0.35, iou=0.5):
     """
     对给定的模型和数据集运行YOLO对象检测。
     :param iou:
@@ -63,7 +63,7 @@ def save_results(results, result_txt_path, result_image_path):
 
 if __name__ == '__main__':
     # model_path = '井盖测试集/best.pt'
-    model_path = '/home/angxue/Downloads/maybe-the-end2.pt'
+    model_path = '/home/angxue/Downloads/the-end2.pt'
     data_path = '井盖测试集/测试集图片'
     # data_path = '井盖测试集/测试集图片/test10.jpg'
 
